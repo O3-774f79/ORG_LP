@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Organization LP</title>
+    <script src="./JS-for-DepartTemplate/OrgChart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Helvetica;
+        }
+        #tree {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="tree"></div>
+    <script>
+        const CompanyConfig = () => {
+            OrgChart.templates.company = Object.assign({}, OrgChart.templates.olivia);
+            OrgChart.templates.company.size = [330, 120];
+            OrgChart.templates.company.node =
+                '<rect x="-2" y="-2" width="330" height="120" fill="#ffffff" stroke-width="1" stroke="#aeaeae" rx="5" ry="5"></rect>';
+            OrgChart.templates.company.field_1 =
+                '<text width="145" class="field_0" style="font-size: 25px;" fill="#757575" x="100" y="35">{val}</text>';
+            OrgChart.templates.company.ripple = {
+                radius: 100,
+                color: "#039BE5",
+                rect: null
+            };
+        }
+        const DepartamentConfig = () => {
+            OrgChart.templates.department = Object.assign({}, OrgChart.templates.olivia);
+            OrgChart.templates.department.size = [330, 120];
+            OrgChart.templates.department.node =
+                '<rect x="-2" y="-2" width="330" height="120" fill="#ffffff" stroke-width="1" stroke="#aeaeae" rx="5" ry="5"></rect>';
+            OrgChart.templates.department.field_0 =
+                '<text width="145" class="field_0" style="font-size: 20px;" fill="#757575" x="100" y="35">{val}</text>';
+            OrgChart.templates.department.field_1 =
+                '<text width="145" class="field_1" style="font-size: 14px;" fill="#757575" x="100" y="65">ตำแหน่ง : {val}</text>'
+            OrgChart.templates.department.field_2 =
+                '<text width="145" class="field_2" style="font-size: 14px;" fill="#757575" x="100" y="86">อำนาจดำเนินการ : {val}</text>'
+            OrgChart.templates.department.ripple = {
+                radius: 0,
+                color: "#F57C00",
+                rect: null
+            };
+        }
+        const StaffConfig = () => {
+            OrgChart.templates.staff = Object.assign({}, OrgChart.templates.olivia);
+            OrgChart.templates.staff.size = [330, 120];
+            OrgChart.templates.staff.node =
+                '<rect x="0" y="0" width="330" height="120" fill="#ffffff" stroke-width="1" stroke="#aeaeae"></rect>';
+            OrgChart.templates.department.field_0 =
+                '<text width="145" class="field_0" style="font-size: 20px;" fill="#757575" x="100" y="35">{val}</text>';
+            OrgChart.templates.department.field_1 =
+                '<text width="145" class="field_1" style="font-size: 14px;" fill="#757575" x="100" y="65">ตำแหน่ง : {val}</text>'
+            OrgChart.templates.department.field_2 =
+                '<text width="145" class="field_2" style="font-size: 14px;" fill="#757575" x="100" y="86">อำนาจดำเนินการ : {val}</text>'
+            OrgChart.templates.staff.ripple = {
+                radius: 0,
+                color: "#FFCA28",
+                rect: null
+            };
+        }
+        window.onload = function () {
+            CompanyConfig()
+            DepartamentConfig()
+            StaffConfig()
+            var chart = new OrgChart(document.getElementById("tree"), {
+                scaleInitial: BALKANGraph.match.boundary,
+                enableSearch: false,
+                nodeBinding: {
+                    field_0: "name",
+                    field_1: "id",
+                    field_2: "pid",
+                    img_0: "img"
+                },
+                tags: {
+                    "Company": {
+                        template: "company"
+                    },
+                    "Department": {
+                        template: "department"
+                    },
+                    "Staff": {
+                        template: "staff"
+                    }
+                },
+                nodes: [{
+                        id: 1,
+                        tags: ["Company"]
+                    },
+                    {
+                        id: 2,
+                        pid: 1,
+                        tags: ["Department"],
+                        name: "Marketing Department",
+                        position: "manager",
+                        managerName: "Mr.a",
+                        img: "https://balkangraph.com/js/img/1.jpg"
+                    },
+                    // { id: 3, pid: 1, tags: ["Department"], name: "QA Department",position:"manager",managerName:"Mr.b"},
+                    // { id: 4, pid: 1, tags: ["Department"], name: "Marketing Department",position:"manager",managerName:"Mr.c" },
+                    {
+                        id: 20,
+                        pid: 1,
+                        tags: ["Department"],
+                        name: "QA"
+                    },
+                    {
+                        id: 5,
+                        pid: 2,
+                        tags: ["Staff"],
+                        name: "Elliot Ross"
+                    },
+                    {
+                        id: 6,
+                        pid: 2,
+                        tags: ["Staff"],
+                        name: "Anahi Gordon"
+                    },
+                    {
+                        id: 7,
+                        pid: 2,
+                        tags: ["Staff"],
+                        name: "Knox Macias"
+                    },
+                    {
+                        id: 8,
+                        pid: 2,
+                        tags: ["Staff"],
+                        name: "Nash Ingram"
+                    },
+                    {
+                        id: 9,
+                        pid: 20,
+                        tags: ["Staff"],
+                        name: "Sage Barnett"
+                    },
+                    {
+                        id: 10,
+                        pid: 2,
+                        tags: ["Staff"],
+                        name: "Alice Gray"
+                    },
+                    {
+                        id: 11,
+                        pid: 3,
+                        tags: ["Staff"],
+                        name: "Anne Ewing"
+                    },
+                    {
+                        id: 12,
+                        pid: 3,
+                        tags: ["Staff"],
+                        name: "Reuben Mcleod"
+                    },
+                    {
+                        id: 13,
+                        pid: 3,
+                        tags: ["Staff"],
+                        name: "Ariel Wiley"
+                    },
+                    {
+                        id: 14,
+                        pid: 3,
+                        tags: ["Staff"],
+                        name: "Lucas West"
+                    },
+                    {
+                        id: 15,
+                        pid: 4,
+                        tags: ["Staff"],
+                        name: "Adan Travis"
+                    },
+                    {
+                        id: 16,
+                        pid: 4,
+                        tags: ["Staff"],
+                        name: "Alex Snider"
+                    },
+                    {
+                        id: 17,
+                        pid: 4,
+                        tags: ["Staff"],
+                        name: "Aaliyah Webb"
+                    },
+                    {
+                        id: 18,
+                        pid: 4,
+                        tags: ["Staff"],
+                        name: "Janae Barrett"
+                    },
+                    {
+                        id: 19,
+                        pid: 4,
+                        tags: ["Staff"],
+                        name: "Lexie Cole"
+                    }
+                ]
+            });
+        };
+    </script>
+</body>
+
+</html>
