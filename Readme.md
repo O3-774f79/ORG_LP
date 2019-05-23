@@ -10,7 +10,7 @@
     - control expcoll fixed node style
     - img size
 
-`ripple field get by api field name`
+`ripple field get by service field name`
 
 
 ## Can not config
