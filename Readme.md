@@ -1,6 +1,6 @@
 # OrgChart
 
-> Config
+## Config
     - body style
     - #tree style,size
     - #tree>svg background
@@ -13,7 +13,7 @@
 ##### **ripple field get by api field name**
 
 
-> Can not config
+## Can not config
     - ripple tags style
     - ripple field style
     - ripple div style 
